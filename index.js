@@ -50643,9 +50643,7 @@ class BroadcastReaderApp extends _lib_ui_Behaviour__WEBPACK_IMPORTED_MODULE_0__[
                 });
                 if (is_new) {
                     console.log(`Submitting ${best.value.item} for ${player}`);
-                    Backend.submit(this.buffer.user, this.buffer.detected);
-                    this.storage.set(this.buffer.user.token, this.buffer);
-                    this.renderDetections();
+                    this.saveChanges();
                 }
                 else {
                     console.log(`Discarding because ${best.value.item} isn't new`);
@@ -50672,14 +50670,29 @@ class BroadcastReaderApp extends _lib_ui_Behaviour__WEBPACK_IMPORTED_MODULE_0__[
             "display": "grid",
             "column-gap": "5px",
             "row-gap": "2px",
-            "grid-template-columns": "25% 35% 40%"
+            "grid-template-columns": "auto auto auto 20px"
         });
         layout.header("Detected Broadcasts");
         layout.row(grid);
-        grid.append(c().append(bold("Time")), c().append(bold("Player")), c().append(bold("Item")));
+        grid.append(c().append(bold("Time")), c().append(bold("Player")), c().append(bold("Item")), c());
         for (let broadcast of this.buffer.detected) {
-            grid.append(c().append(formatTimeWithoutMilliseconds(broadcast.message_timestamp)), c().append(broadcast.player), c().append(broadcast.item));
+            grid.append(c().append(formatTimeWithoutMilliseconds(broadcast.message_timestamp))
+                .toggleClass("ctr-striked", broadcast.deleted), c().append(broadcast.player)
+                .toggleClass("ctr-striked", broadcast.deleted), c().append(broadcast.item)
+                .toggleClass("ctr-striked", broadcast.deleted), c().append(_trainer_ui_nisl__WEBPACK_IMPORTED_MODULE_18__.NislIcon.delete()
+                .css2(broadcast.deleted ? { filter: "grayscale" } : {})
+                .toggleClass("ctr-striked", broadcast.deleted)
+                .addClass("ctr-clickable")
+                .on("click", () => {
+                broadcast.deleted = !broadcast.deleted;
+                this.saveChanges();
+            })));
         }
+    }
+    saveChanges() {
+        Backend.submit(this.buffer.user, this.buffer.detected);
+        this.storage.set(this.buffer.user.token, this.buffer);
+        this.renderDetections();
     }
     end() {
     }
