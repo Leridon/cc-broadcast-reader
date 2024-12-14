@@ -50412,6 +50412,7 @@ const item_mapping = [
     { item: "Second-Age robe bottom", broadcast_text: "Second Age robe bottoms" },
     { item: "Second-Age staff", broadcast_text: "Second Age staff" },
     { item: "Orlando Smith's hat", broadcast_text: "Orlando Smith's hat" },
+    { item: "Golden Compass", broadcast_text: "golden compass" },
 ];
 var Backend;
 (function (Backend) {
