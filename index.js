@@ -50619,18 +50619,18 @@ class BroadcastReaderApp extends _lib_ui_Behaviour__WEBPACK_IMPORTED_MODULE_0__[
                 if (message.timestamp < this.buffer.user.event.date.from || message.timestamp > this.buffer.user.event.date.to)
                     return;
                 console.log(message.text);
-                const match = message.text.match("\u2746News: [\u{1F480}\u26AF\u3289\u328F]?(.*) comp[il]eted a Treasure Trai[il] and received(( a)|( an))? (.*)!");
+                const match = message.text.match("\u2746News: [\u{1F480}\u26AF\u3289\u328F]?([^\u{1F480}\u26AF\u3289\u328F]*) comp[il]eted a Treasure Trai[il] and received(( a)|( an))? (.*)!");
                 // Discard messages not matching any
                 if (!match) {
                     return;
                 }
                 const color = Message.color(message);
-                if (!lodash__WEBPACK_IMPORTED_MODULE_14__.isEqual([255, 140, 56], color)) {
+                const player = match[1];
+                const item = match[5];
+                if (!lodash__WEBPACK_IMPORTED_MODULE_14__.isEqual([255, 140, 56], color) && !(lodash__WEBPACK_IMPORTED_MODULE_14__.isEqual([255, 0, 0], color) && item.includes("Orlando"))) {
                     console.log(`Does not match color: ${color.join(", ")}`);
                     return;
                 }
-                const player = match[1];
-                const item = match[5];
                 const best = findBestMatch(item_mapping, m => stringSimilarity(m.broadcast_text, item), 0.9);
                 // Discard if matching item could not be found
                 if (!best) {
