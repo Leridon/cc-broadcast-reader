@@ -50388,6 +50388,7 @@ const item_mapping = [
     { item: "Third age kiteshield", broadcast_text: "Third Age kiteshield" },
     { item: "Third age ranger coif", broadcast_text: "Third Age ranger coif" },
     { item: "Third age ranger body", broadcast_text: "Third Age range top" },
+    { item: "Third age ranger body", broadcast_text: "Third Age ranger body" },
     { item: "Third age ranger chaps", broadcast_text: "Third Age ranger chaps" },
     { item: "Third age vambraces", broadcast_text: "Third Age vambraces" },
     { item: "Third age mage hat", broadcast_text: "Third Age mage hat" },
@@ -50597,6 +50598,7 @@ class BroadcastReaderApp extends _lib_ui_Behaviour__WEBPACK_IMPORTED_MODULE_0__[
                     const existing_buffer = yield this.storage.get(user.token);
                     if (existing_buffer) {
                         this.buffer = existing_buffer;
+                        this.buffer.user = user;
                         Backend.submit(user, existing_buffer.detected);
                     }
                     else {
