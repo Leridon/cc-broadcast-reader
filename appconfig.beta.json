@@ -1,6 +1,6 @@
 {
-  "appName": "Clue Trainer",
-  "description": "New generation clue solver featuring detailed instructions and improved puzzle solvers.",
+  "appName": "Clue Trainer (Beta Branch)",
+  "description": "Beta branch for Clue Trainer, hosting experimental or otherwise unstable versions. Not for regular use.",
   "appUrl": "index.html",
   "configUrl": "appconfig.json",
   "iconUrl": "/assets/icons/glass.png",
